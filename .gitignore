@@ -1,0 +1,9 @@
+# Iqnora arquivo especifico
+#Arquivo.txt
+
+# usa expressão
+*~
+
+# Iqnora todos os arquivos e diretorios dentro do diretorio informado
+var/lib/pacotes/**/*
+var/cache/pacotes/**/*
