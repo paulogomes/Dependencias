@@ -1,0 +1,109 @@
+#!/bin/sh
+
+# ------------- VARIAVES -------------------------------
+
+# Configura a pasta raiz enquanto o pacote não é instalado
+RAIZ=/home/paulo/projetos/Dependencias/tmp # teste - remover quando terminar de testar
+
+# Diretorio de trabalho
+DIRTRABALHO=$RAIZ/var/lib/dependencias
+
+# Lista dos repositorios usados
+REPOSITORIOS=`cat $RAIZ/repositorio`
+
+# Versão do Slackware
+#VERSAO_SLACKWARE="slackware64-13.1" 
+
+ARQUIVOS="FILE_LIST FILELIST.TXT MANIFEST.bz2"
+
+# ------------- VARIAVES -------------------------------
+
+# ------------- FUNÇÕES -------------------------------
+
+# Atualiza as informações sobre os pacotes dos repositorios
+function atualizar()
+{
+  for repositorio in $REPOSITORIOS; do
+    Nome_repositorio=`echo $repositorio | cut -f1 -d '%'`
+    endereco_repositorio=`echo $repositorio | cut -f2 -d '%'`
+
+    if [ ! -e $DIRTRABALHO/$Nome_repositorio ]; then
+      mkdir -p $DIRTRABALHO/$Nome_repositorio
+    fi
+
+    cd $DIRTRABALHO/$Nome_repositorio
+    for arquivo in $ARQUIVOS; do
+      wget -c $endereco_repositorio/$arquivo
+    done
+  done
+}
+
+# Formata o arquivo MANIFEST
+function formatar_MANIFEST()
+{
+  for MANIFEST in `find $DIRTRABALHO | grep 'MANIFEST.bz2'`; do
+    repositorio=`echo $MANIFEST | rev | cut -d/ -f2 | rev`
+
+    echo "Formatando o arquivo MANIFEST.bz2 do repositorio: $repositorio"
+    bunzip2 -c $MANIFEST | sed -n '/[^\/\|\=]$\|^$/p' | sed 's/.*\///' | tr '\n' ' ' | sed 's/   /\n/g' > ${DIRTRABALHO}/${repositorio}/filelist
+  done
+}
+
+# Retorna o pacote referente ao arquivo
+function pesquisar()
+{
+  for filelist in `find $DIRTRABALHO | grep 'filelist'`; do
+    linhas=`grep "$1" $filelist | awk '{print $1}'`
+    if [ "$linhas" != "" ]; then
+      echo $linhas
+    fi
+   done
+}
+
+function dependencia()
+{
+  dependencias=`ldd $(which $1) | grep 'not found' | cut -d. -f1`
+
+  for dependencia in $dependencias;
+  do
+    echo $(pesquisar $i)
+  done
+}
+
+# ------------- FUNÇÕES -------------------------------
+
+
+function uso()
+{
+  echo -e "\n\t Gerenciador de Dependencias \n\
+    Uso:\n\
+    \t $0 {atualizar|pesquisar} {PADRAO|PACOTE}\n"
+}
+
+# Mostra ajuda se não entrar com argumentos
+if [ $# -eq 0 ]; then
+  uso
+else
+  case $1 in
+    atualizar)
+      atualizar
+      formatar_MANIFEST
+    ;;
+    dependencia)
+	dependencia $2
+    ;;
+    pesquisar)
+      if [ -n "$2" ]; then 
+	for pacote in $(pesquisar $2); do
+	  echo $pacote
+	done
+      else
+	uso
+      fi
+    ;;
+    *)
+      echo -e "Opcao desconhecida.\n"
+      uso
+    ;;
+  esac
+fi
