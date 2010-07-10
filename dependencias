@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# ------------- VARIAVES -------------------------------
+# -------- Inicio: VARIAVES -------------------------------
 
-# Configura a pasta raiz enquanto o pacote não é instalado
+# Configura a pasta raiz enquanto o pacote nÃ£o Ã© instalado
 RAIZ=/home/paulo/projetos/Dependencias/tmp # teste - remover quando terminar de testar
 
 # Diretorio de trabalho
@@ -11,16 +11,16 @@ DIRTRABALHO=$RAIZ/var/lib/dependencias
 # Lista dos repositorios usados
 REPOSITORIOS=`cat $RAIZ/repositorio`
 
-# Versão do Slackware
+# VersÃ£o do Slackware
 #VERSAO_SLACKWARE="slackware64-13.1" 
 
 ARQUIVOS="FILE_LIST FILELIST.TXT MANIFEST.bz2"
 
-# ------------- VARIAVES -------------------------------
+# -------- Fim: VARIAVES -------------------------------
 
-# ------------- FUNÇÕES -------------------------------
+# ----- Inicio: FUNÃ‡Ã•ES -------------------------------
 
-# Atualiza as informações sobre os pacotes dos repositorios
+# Atualiza as informaÃ§Ãµes sobre os pacotes dos repositorios
 function atualizar()
 {
   for repositorio in $REPOSITORIOS; do
@@ -70,7 +70,7 @@ function dependencia()
   done
 }
 
-# ------------- FUNÇÕES -------------------------------
+# ------- Fim: FUNÃ‡Ã•ES -------------------------------
 
 
 function uso()
@@ -80,7 +80,7 @@ function uso()
     \t $0 {atualizar|pesquisar} {PADRAO|PACOTE}\n"
 }
 
-# Mostra ajuda se não entrar com argumentos
+# Mostra ajuda se nÃ£o entrar com argumentos
 if [ $# -eq 0 ]; then
   uso
 else
