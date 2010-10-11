@@ -1,0 +1,4 @@
+Gerenciador de dependencias do Slackware
+
+Procura os pacotes que contem as bibliotecas necessárias para um determinado programa,
+utilizando o comando /usr/bin/ldd e pesquisando nos arquivos MANIFEST dos repositórios
