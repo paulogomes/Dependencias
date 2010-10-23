@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Configura a pasta raiz enquanto o pacote não é instalado
+# Configura a pasta raiz enquanto o pacote no e instalado
 RAIZ=`pwd`
 
 # Diretorio de trabalho
@@ -11,7 +11,7 @@ REPOSITORIOS=$RAIZ/etc/dependencias/repositorio
 
 ARQUIVOS="FILE_LIST FILELIST.TXT MANIFEST.bz2"
 
-# Atualiza as informações sobre os pacotes dos repositorios
+# Atualiza as informacoes sobre os pacotes dos repositorios
 function atualizar()
 {
   for repositorio in `cat $REPOSITORIOS`; do
@@ -47,11 +47,7 @@ function pesquisar()
 {
   for filelist in `find $DIRTRABALHO | grep 'filelist'`; do
     resultado=`grep "$1" $filelist | awk '{print $1}'`
-  done
-  for linha in $resultado; do
-    pacote=`echo "$linha" | cut -d: -f2`
-    repositorio=`echo "$linha" | cut -d: -f1 | rev | cut -d/ -f2 | rev`
-    echo $repositorio:$pacote
+    echo $resultado
   done
 }
 
@@ -65,22 +61,23 @@ function pesquisar()
 #     done
 # }
 
-function dependencia()
-{
-  dependencias=`ldd $(which $1) | grep 'not found' | cut -d. -f1`
-
-  for dependencia in $dependencias;
-  do
-    echo $i
-  done
-}
+#function dependencia()
+#{
+#  dependencias=`ldd $(which $1) | grep 'not found' | cut -d. -f1`
+#
+#  for dependencia in $dependencias;
+#  do
+#    echo $i
+#  done
+#}
 
 
 function uso()
 {
   echo -e "\n\t Gerenciador de Dependencias \n\
     Uso:\n\
-    \t $0 {atualizar|pesquisar|baixar} {PADRAO|PACOTE}\n"
+    \t $0 [atualizar]\n
+    \t $0 [pesquisar] {PADRAO|PACOTE}\n"
 }
 
 # Mostra ajuda se nao entrar com argumentos
