@@ -1,4 +1,24 @@
 Gerenciador de dependencias do Slackware
 
-Procura os pacotes que contem as bibliotecas necessárias para um determinado programa,
-utilizando o comando /usr/bin/ldd e pesquisando nos arquivos MANIFEST dos repositórios
+O QUE É 'dependencias'?
+======================================
+
+Dependencias é um script para procura os pacotes que contém as bibliotecas que estão faltando no seu sistema.
+Este script utiliza o arquivo 'MANIFEST' dos repositórios para determinar o pacote que contém a biblioteca.
+
+COMO USAR?
+======================================
+
+Se um determinado programa está reclamando a falta da biblioteca libXYZ.so, e você não sabe em que pacote está essa biblioteca.
+
+Utilize:
+$ dependencias pesquisar libXYZ.so
+XYZ-0.0-i486.tgz
+
+COMO INSTALAR?
+======================================
+
+Para instalar siga os passos abaixo:
+$ make
+# makepkg -l y -c n  dependencias-<VERSÃO>-noarch.tgz
+# installpkg dependencias-<VERSÃO>-noarch.tgz
