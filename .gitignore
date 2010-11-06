@@ -1,9 +1,8 @@
 # Iqnora arquivo especifico
 #Arquivo.txt
 
-# usa express„o
+# usa express√£o
 *~
 
 # Iqnora todos os arquivos e diretorios dentro do diretorio informado
-var/lib/pacotes/**/*
-var/cache/pacotes/**/*
+dist/*

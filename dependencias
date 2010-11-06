@@ -94,7 +94,10 @@ else
     ;;
     pesquisar)
       if [ -n "$2" ]; then 
-	pesquisar $2
+	pacotes=`pesquisar $2`
+	for pacote in $pacotes; do
+	  echo $pacote
+	done
       else
 	uso
       fi

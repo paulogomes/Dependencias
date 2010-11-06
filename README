@@ -1,15 +1,15 @@
 Gerenciador de dependencias do Slackware
 
-O QUE √â 'dependencias'?
+O QUE … 'dependencias'?
 ======================================
 
-Dependencias √© um script para procura os pacotes que cont√©m as bibliotecas que est√£o faltando no seu sistema.
-Este script utiliza o arquivo 'MANIFEST' dos reposit√≥rios para determinar o pacote que cont√©m a biblioteca.
+Dependencias È um script para procura os pacotes que contÈm as bibliotecas que est„o faltando no seu sistema.
+Este script utiliza o arquivo 'MANIFEST' dos repositÛrios para determinar o pacote que contÈm a biblioteca.
 
 COMO USAR?
 ======================================
 
-Se um determinado programa est√° reclamando a falta da biblioteca libXYZ.so, e voc√™ n√£o sabe em que pacote est√° essa biblioteca.
+Se um determinado programa est· reclamando a falta da biblioteca libXYZ.so, e vocÍ n„o sabe em que pacote est· essa biblioteca.
 
 Utilize:
 $ dependencias pesquisar libXYZ.so
@@ -20,5 +20,7 @@ COMO INSTALAR?
 
 Para instalar siga os passos abaixo:
 $ make
-# makepkg -l y -c n  dependencias-<VERS√ÉO>-noarch.tgz
-# installpkg dependencias-<VERS√ÉO>-noarch.tgz
+$cd dist
+# makepkg -l y -c n  dependencias-<VERS√O>-noarch.tgz
+# installpkg dependencias-<VERS√O>-noarch.tgz
+
